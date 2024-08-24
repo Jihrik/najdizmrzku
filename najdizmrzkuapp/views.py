@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Store
 
-def index(request):
-    return HttpResponse("Hello World")
+def home(request):
+    stores = Store.objects.all()
+    
+    context = {'stores': stores}
+    return render(request, 'najdizmrzkuapp/store_component.html', context)
     

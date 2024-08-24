@@ -6,3 +6,6 @@ class Store(models.Model):
     city = models.CharField(max_length=150)
     address = models.CharField(max_length=255)
     postal = models.CharField(max_length=6) # using Charfield to ensure no digits will be lost vith save() method
+
+    def __str__(self) -> str:
+        return self.name

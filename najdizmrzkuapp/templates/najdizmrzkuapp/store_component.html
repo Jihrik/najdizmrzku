@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% for store in stores %}
+    <h2>{{store.name}}</h2>
+    <p><a href="{{store.website}}">{{store.website}}</a></p>
+    <small>{{store.address}} {{store.city}} {{store.postal}}</small>
+{% endfor %}
+
+{% endblock content%}
