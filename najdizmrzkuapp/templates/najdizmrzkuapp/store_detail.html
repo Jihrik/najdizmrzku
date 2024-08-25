@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="store_detail">
+    <h2>{{store.name}}</h2>
+    {% if store.website %}
+        <a href="{{store.website}}">{{store.website}}</a>
+    {% endif %}
+    <p>{{store.city}}</p>
+    <small>{{store.address}}</small>
+    <small>{{store.postal}}</small>
+</div>
+{% endblock content %}

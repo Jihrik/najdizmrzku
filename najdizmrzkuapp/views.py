@@ -6,4 +6,10 @@ def home(request):
     
     context = {'stores': stores}
     return render(request, 'najdizmrzkuapp/store_component.html', context)
+
+
+def store_detail(request, pk):
+    store = Store.objects.get(id=pk)
+    context = {'store': store}
     
+    return render(request, 'najdizmrzkuapp/store_detail.html', context)
