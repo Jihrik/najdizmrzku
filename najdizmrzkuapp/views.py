@@ -15,10 +15,40 @@ def home(request):
 
 def store_detail(request, pk):
     store = Store.objects.get(id=pk)
-    ratings = store.ratings.all()  # Fetch ratings related to the store
+    ratings = store.ratings.all()
+    rating_choices = range(1, 11)
+    
+    if request.method == 'POST':
+        rating_value = request.POST.get('rating')
+        rating_comment = request.POST.get('comment', '')
+        
+        if request.user.is_authenticated:
+            existing_rating = Rating.objects.filter(
+                store=store,
+                user=request.user,
+                rating=rating_value,
+                comment=rating_comment.strip()
+            ).exists()
+            
+            if not existing_rating:
+                new_rating = Rating.objects.create(
+                    store=store,
+                    user=request.user,
+                    rating=rating_value,
+                    comment=rating_comment.strip()
+                )
+                new_rating.save()
+            else:
+                messages.error(request, 'You have already submitted the same rating.')
+            
+            return redirect('store-detail', pk=store.id)
+        else:
+            return redirect('login')    
+    
     context = {
         'store': store,
-        'ratings': ratings,  # Pass ratings to the context
+        'ratings': ratings,
+        "rating_choices": rating_choices,
     }
     return render(request, 'najdizmrzkuapp/store_detail.html', context)
 

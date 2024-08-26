@@ -1,7 +1,33 @@
 
+<form action="{% url 'store-detail' store.id %}" method="post">
+    {% csrf_token %}
+    <label for="rating">Rate the store:</label><br>
+
+    <div class="rating-options">
+        {% for rating in rating_choices %}
+        <input type="radio" id="rating{{ rating }}" name="rating" value="{{ rating }}">
+        <label for="rating{{ rating }}">{{ rating }}</label>
+        {% endfor %}
+    </div>
+
+    <label for="comment">Comment:</label><br>
+    <textarea name="comment" id="comment" rows="4"></textarea><br>
+    <input type="submit" value="Submit Rating">
+</form>
+<br>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="error_message">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+<br>
+
 {% for rating in ratings %}
 <div class="rating-container">
-    <small><a href="{% url 'user-profile' rating.user.id %}">{{user.username}}</a>{{rating.created|timesince}}</small>
-    <p>{{rating.comment}}</p>
+    <small><a href="{% url 'user-profile' rating.user.id %}">{{rating.user}}</a>{{rating.created|timesince}} ago</small>
+    <p>{{rating.rating}} {{rating.comment}}</p>
 </div>
 {% endfor %}
