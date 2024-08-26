@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Store(models.Model):
     name = models.CharField(max_length=150)
@@ -16,17 +17,6 @@ class Store(models.Model):
         return self.name
     
     
-class User(models.Model):
-    nick = models.CharField(max_length=155)
-    first_name = models.CharField(max_length=155)
-    last_name = models.CharField(max_length=155)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.nick
-    
-
 class Rating(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='ratings')
     user = models.ForeignKey(User, on_delete=models.CASCADE)

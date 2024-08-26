@@ -1,0 +1,7 @@
+
+{% for rating in ratings %}
+<div class="rating-container">
+    <small><a href="{% url 'user-profile' rating.user.id %}">{{user.username}}</a>{{rating.created|timesince}}</small>
+    <p>{{rating.comment}}</p>
+</div>
+{% endfor %}
